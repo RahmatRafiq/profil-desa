@@ -119,14 +119,15 @@ export default async function PostDetailPage({ params }: { params: Promise<{ slu
               </div>
 
               {/* Cover Image */}
-              <div className="relative aspect-video rounded-3xl overflow-hidden shadow-2xl">
+              <div className="rounded-3xl overflow-hidden shadow-2xl">
                 <Image
                   src={(!post.image_url || post.image_url.includes('placeholder-bg.jpg'))
                     ? 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1000&q=80'
                     : post.image_url}
                   alt={post.title}
-                  fill
-                  className="object-cover"
+                  width={1200}
+                  height={800}
+                  className="w-full h-auto"
                   priority
                 />
               </div>
