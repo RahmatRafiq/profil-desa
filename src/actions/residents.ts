@@ -1,6 +1,7 @@
 'use server'
 
 import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 import { hashNIK, encrypt, decrypt } from '@/lib/crypto';
 import { revalidatePath } from 'next/cache';
 import { residentSchema, type ResidentInput } from '@/lib/validations';
@@ -152,7 +153,8 @@ export async function deleteResident(id: string): Promise<ActionResponse> {
 }
 
 export async function verifyResidentNIK(nik: string) {
-  const supabase = await createClient();
+  // Use admin client to bypass RLS for public NIK verification
+  const supabase = createAdminClient();
   try {
     const hashedNIK = hashNIK(nik);
     const { data, error } = await supabase
